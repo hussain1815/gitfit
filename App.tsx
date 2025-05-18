@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+
+import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthStack from './src/navigation/AuthStack';

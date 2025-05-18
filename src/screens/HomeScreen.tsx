@@ -21,8 +21,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../navigation/AppStack';
 import usePremium from '../hooks/usePremium';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useUserData } from '../hooks/useUserData'; // Add this import
-import LiveSessionButton from '../components/LiveSessionButton';
+import { useUserData } from '../hooks/useUserData'; 
+import CommunityFooterIcon from '../components/CommunityFooterIcon';
+
 
 type HomeScreenNavigationProp = NativeStackNavigationProp<
   AppStackParamList,
@@ -191,24 +192,20 @@ const HomeScreen = () => {
           </View>
         </View>
         <View style={styles.footer}>
-        <LiveSessionButton 
-           onPress={() => navigation.navigate(isTrainer ? 'HostSession' : 'JoinSession' as any)}
-           isTrainer={isTrainer}
-          isPremium={isPremium}
-        />
+        
           <View style={styles.footerContent}>
+            <View style={styles.footerLeft}></View>
+              <Text style={styles.footerText}>
+                {isPremium 
+                  ? `Premium ${isTrainer ? 'Trainer' : 'Member'}`
+                  : 'Get Premium Features'
+                }
+              </Text>
 
-          <Text style={styles.footerText}>
-            {isPremium 
-               ? `Premium ${isTrainer ? 'Trainer' : 'Member'}`
-              : 'Get Premium Features'
-             }
-          </Text>
-
-          <PremiumIcon 
-              isPremium={isPremium} 
-              onSubscribe={() => navigation.navigate('Upgrade')}
-            />
+              <PremiumIcon 
+                isPremium={isPremium} 
+                onSubscribe={() => navigation.navigate('Upgrade')}
+              />
           <TouchableOpacity 
               onPress={() => isPremium ? handleUnsubscribe() : navigation.navigate('Upgrade')}
             >
@@ -217,11 +214,9 @@ const HomeScreen = () => {
               style={styles.premiumIcon}
             />
           </TouchableOpacity>
-
-    
-    
-
-  </View>
+          
+        </View>
+        {isPremium && <CommunityFooterIcon />}
 </View>
 
       </View>
@@ -420,11 +415,16 @@ const styles = StyleSheet.create({
   },
   footerContent: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   footerText: {
     color: colors.text,
     fontSize: 14,
+  },
+  footerLeft: {
+  flexDirection: 'row',
+  alignItems: 'center',
   },
   userTypeText: {
     fontSize: 14,

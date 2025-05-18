@@ -1,0 +1,17 @@
+diff --git a/node_modules/react-native-image-picker/android/src/main/java/com/imagepicker/VideoMetadata.java b/node_modules/react-native-image-picker/android/src/main/java/com/imagepicker/VideoMetadata.java
+index abc1234..def5678 100644
+--- a/node_modules/react-native-image-picker/android/src/main/java/com/imagepicker/VideoMetadata.java
++++ b/node_modules/react-native-image-picker/android/src/main/java/com/imagepicker/VideoMetadata.java
+@@ -43,7 +43,11 @@ public class VideoMetadata {
+         metadataRetriever.setDataSource(filePath);
+         duration = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION);
+         width = metadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
+-        metadataRetriever.release();
++        try {
++            metadataRetriever.release();
++        } catch (IOException e) {
++            e.printStackTrace();
++        }
+     }
+ 
+     public String getDuration() {
